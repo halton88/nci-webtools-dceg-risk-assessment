@@ -1,15 +1,9 @@
-var app = angular.module("myapp");
+angular.module('LungCancerScreening')
 
-app.controller("MainCtrl", function($scope, $sce, $http, $localStorage, $location) {
-	
-	/* show results set to false. Disable your results tab until calculate is clicked */
-	$scope.resultsDisabled = true;
+.controller("MainCtrl", ['$location', function(location) {
+  var self = this;
 
-	$scope.$on('$locationChangeStart', function() { 
-		$scope.active = $location.path();
-	});
+  self.resultsDisabled = true
+  self.changeUrl = location.path
 
-	$scope.changeUrl = function(url) {
-		$location.path(url);
-	};
-});
+}])

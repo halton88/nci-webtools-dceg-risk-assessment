@@ -1,31 +1,30 @@
-'use strict';
-
 /**
  * @ngdoc overview
- * @name angularApp
+ * @name LungCancerScreening
  * @description
- * # angularApp
+ * # This app contains methods for controlling the validation state of the form
+ * # and for exporting calculation results to a file
  *
  * Main module of the application.
  */
-var app = angular.module("myapp", ['ngStorage','ngRoute']);
 
-app.config(function ($routeProvider) {
+angular.module('LungCancerScreening', ['ngStorage', 'ngRoute', 'ui.bootstrap', 'ui.validate'])
 
-    $routeProvider
-      .when('/', {
-        templateUrl: 'form.html',
-        controller: 'FormCtrl'
-      })   
-      .when('/results', {
-        templateUrl: 'results.html',
-        controller: 'ResultCtrl'
-      })  
-      .when('/pdf', {
-        templateUrl: 'pdf.html',
-        controller: 'ResultCtrl'
-      })                  
-      .otherwise({
-        redirectTo: '/'
-      });
-  });
+.config(function ($routeProvider) {
+  $routeProvider
+    .when('/', {
+      templateUrl: 'form.html',
+      controller: 'FormCtrl'
+    })
+    .when('/results', {
+      templateUrl: 'results.html',
+      controller: 'ResultCtrl'
+    })
+    .when('/pdf', {
+      templateUrl: 'pdf.html',
+      controller: 'ResultCtrl'
+    })
+    .otherwise({
+      redirectTo: '/'
+    })
+})

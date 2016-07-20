@@ -1,3 +1,27 @@
+
+
+
+angular.module('LungCancerScreening')
+
+.controller('FormCtrl', [$localStorage, $ngResource, function(localStorage, resource) {
+
+  var self = this
+
+  self.form = {}
+
+  function init() {
+    self.form.ageCriteria = fa
+  }
+
+
+
+
+}])
+
+
+
+
+
 var app = angular.module("myapp");
 
 app.controller("FormCtrl", function($scope, $sce, $http, $localStorage, $location) {
@@ -279,13 +303,10 @@ app.controller("FormCtrl", function($scope, $sce, $http, $localStorage, $locatio
   };
 
   $scope.myForm.submit = function() {
-    /* add port for localhost testing purposes */
-    if (window.location.hostname=='localhost') {
-      url = 'http://' + window.location.hostname + ':9982/lungCancerRest/';
-    }
-    else {
-      url = 'http://' + window.location.hostname + '/lungCancerRest/';
-    };
+    var url = location.origin +
+              location.pathname +
+              'calculate/';
+    
     var bmi = 0,
         h,
         w,
