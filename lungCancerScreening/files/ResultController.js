@@ -1,61 +1,57 @@
-var app = angular.module("myapp");
+angular.module('LungCancerScreening')
+.controller('ResultCtrl', ['$http', '$location', '$sessionStorage', '$sce', function(http, location, session, sce) {
 
-app.controller("ResultCtrl", function($scope, $window, $sce, $http, $localStorage, $location) {
-  /* These globals are used in multiple ajax calls in different functions */
+  var self = this
 
-  $scope.session = $localStorage;
-  $scope.base_url = window.location.origin + window.location.pathname
+  self.session = session
 
-  $scope.raceMap = {
-    0: 'a White',
-    1: 'a Black or African-American',
-    2: 'a Hispanic',
-    3: 'an Asian or Pacific Islander',
-    4: 'a'
-  };
-  $scope.gender = {
-    0: 'male',
-    1: 'female'
-  };
+  self.map = {
+    race: {
+      0: 'a White',
+      1: 'a Black or African-American',
+      2: 'a Hispanic',
+      3: 'an Asian or Pacific Islander',
+      4: 'a'
+    },
 
+    gender: {
+      0: 'male',
+      1: 'female'
+    }
+  }
 
   /* Draws a simple table with 1000 cells filled in based on units out of 1000 */
-  $scope.drawGraph = function(units) {
-    var cellArray = [];
-    var html = '<table cellspacing="0" cellpadding="0" border="1">';
+  self.drawGraph = function(units) {
 
-    /* create rows and columns filled in with color based on units until units is zero */
-    for (var x=0; x<25; x++) {
-      var row = [];
-      for (var z=1; z<41; z++) {
-        if (units>0) {
-          row.push('<td class="f"><img src="' + $scope.base_url + 'files/cellfill.png"></td>');
-        }
-        else {
-          row.push('<td><img src="' + $scope.base_url + 'files/cellempty.png"></td>');
-        };
-        units-=1;
-      };
-      cellArray.push(row);
-    };
+    var table = angular.element('<table/>')
+    table.attr('cellspacing', '0')
+    table.attr('cellpadding', '0')
+    table.attr('border', '1')
 
-    /* reverse rows so colors fill in from bottom of chart */
-    cellArray.reverse();
-    
-    /* loop through row array and create actual html to be dislpayed on page */
-    for (var x = 0; x<cellArray.length; x++) {
-      html+="<tr>";
-      for (var z = 0; z<cellArray[x].length; z++) {
-        html+=cellArray[x][z];
-      };
-      html+="</tr>";
-    };
-    html+= '</table>'; 
-    return $sce.trustAsHtml(html);
-  }; 
+    units = Math.round(++units)
+    for (var r = 0; r < 25; r ++) {
+      var row = angular.element('<tr/>')
 
-  $scope.exportPDF = function() {
-    $scope.loading = true;
+      for (var c = 0; c < 40; c ++) {
+        var cell = angular.element('<td/>')
+        cell.addClass('cell')
+
+        if (--units > 0)
+          cell.addClass('filled')
+
+        row.append(cell)
+      }
+
+      table.prepend(row)
+    }
+
+    return sce.trustAsHtml(table[0].outerHTML)
+  }
+
+
+
+  exportPDF = function() {
+    self.loading = true;
     if (window.location.hostname=='localhost') {
       url = 'http://' + window.location.hostname + ':9982/exportPDF/';
     }
@@ -89,7 +85,7 @@ app.controller("ResultCtrl", function($scope, $window, $sce, $http, $localStorag
       });
   };
 
-  $scope.print = function() {
+  self.print = function() {
     print(createPrintablePage())
   };
 
@@ -112,5 +108,6 @@ app.controller("ResultCtrl", function($scope, $window, $sce, $http, $localStorag
     html+= '</body>';
     html+= '</html>';
     return html;
-  };
-});
+  };  
+
+}])

@@ -8,22 +8,32 @@
  * Main module of the application.
  */
 
-angular.module('LungCancerScreening', ['ngStorage', 'ngRoute', 'ui.bootstrap', 'ui.validate'])
+angular.module('LungCancerScreening', 
+[ 'ngMessages',
+  'ngResource',
+  'ngRoute',
+  'ngStorage',
+  'ui.bootstrap'])
 
 .config(function ($routeProvider) {
   $routeProvider
     .when('/', {
       templateUrl: 'form.html',
-      controller: 'FormCtrl'
+      controller: 'FormCtrl',
+      controllerAs: 'form'
     })
+
     .when('/results', {
       templateUrl: 'results.html',
-      controller: 'ResultCtrl'
+      controller: 'ResultCtrl',
+      controllerAs: 'results'
     })
+    /*
     .when('/pdf', {
       templateUrl: 'pdf.html',
-      controller: 'ResultCtrl'
-    })
+      controller: 'ResultCtrl',
+      controllerAs: 'results'
+    })*/
     .otherwise({
       redirectTo: '/'
     })
