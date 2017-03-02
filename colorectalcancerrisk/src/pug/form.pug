@@ -11,7 +11,7 @@
 			li
 				a(href="#family-section") Family History
 	#results
-	form#riskForm(method="POST", action="/colorectalcancerrisk/rest/calculate/")
+	form#riskForm(method="POST", action="/colorectalcancerrisk/rest/calculate/", autocomplete="off")
 		include sections/demographics
 		include sections/activity
 		include sections/medical

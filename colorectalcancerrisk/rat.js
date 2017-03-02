@@ -242,7 +242,8 @@ function processSubmission(form){
 		contentType: false,
 		data: fd,
 	}).done(resultsDisplay)
-	.fail(function() {
+	.fail(function(xhr, error, textStatus) {
+        console.log(xhr, error, textStatus);
 		console.log("error");
 	})
 	.always(function() {

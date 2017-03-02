@@ -224,7 +224,6 @@ var validationMessages = {
     }
 };
 
-
 function invalidForm(e, validator) {
 	document.getElementById("errors").scrollIntoView();
 	$(document.forms.riskForm).addClass('submitted');
@@ -234,7 +233,7 @@ function invalidForm(e, validator) {
 function processSubmission(form){
 	var fd = new FormData(form);
 
-	return $.ajax({
+	$.ajax({
 		url: form.action,
 		type: form.method,
 		dataType: 'json',
@@ -242,7 +241,8 @@ function processSubmission(form){
 		contentType: false,
 		data: fd,
 	}).done(resultsDisplay)
-	.fail(function() {
+	.fail(function(xhr, error, textStatus) {
+        console.log(xhr, error, textStatus);
 		console.log("error");
 	})
 	.always(function() {
@@ -292,39 +292,41 @@ function toggleFormDisplay(e) {
 }
 
 function toggleGender(e) {
-	var value = $(e.target).val();
-	if (value == "Male") {
-		$.each($(".female").find("input, select"), function(index, el) {
-			$(el).rules("remove", "required");
-		});
+    var value = $(e.target).val();
+    switch (value) {
+        case "Male":
+            $.each($(".female").find("input, select"), function(index, el) {
+                $(el).rules("remove", "required");
+            });
 
-		$.each($(".male").find("input, select"), function(index, el) {
-			$(el).rules("add", { required: true });
-		});
+            $.each($(".male").find("input, select"), function(index, el) {
+                $(el).rules("add", { required: true });
+            });
 
-		$(".female").removeClass('show');
-		$(".male").addClass('show');
-	}
-	else if(value == "Female") {
-		$.each($(".male").find("input, select"), function(index, el) {
-			$(el).rules("remove", "required");
-			if($("[name='" + el.name + "']").val().length > 0)
-				$("[name='" + el.name + "']").val("");
-		});
+            $(".female").removeClass('show');
+            $(".male").addClass('show');
+            break;
+        case "Female":
+            $.each($(".male").find("input, select"), function(index, el) {
+            $(el).rules("remove", "required");
+            if($("[name='" + el.name + "']").val().length > 0)
+                    $("[name='" + el.name + "']").val("");
+            });
 
-		$.each($(".female").find("input, select"), function(index, el) {
-			$(el).rules("add", { required: true });
-		});
-		
-		$(".male").removeClass('show');
-		$(".female").addClass('show');
-	}
-	else {
-		$(".male, .female").removeClass('show').find("input, select").removeAttr("required");
-		$.each($(".male, .female").find("input, select"), function(index, el) {
-			$(el).rules("remove", "required");
-		});
-	}
+            $.each($(".female").find("input, select"), function(index, el) {
+                $(el).rules("add", { required: true });
+            });
+            
+            $(".male").removeClass('show');
+            $(".female").addClass('show');
+            break;
+        default:
+            $(".male, .female").removeClass('show').find("input, select").removeAttr("required");
+            $.each($(".male, .female").find("input, select"), function(index, el) {
+                $(el).rules("remove", "required");
+            });
+            break;
+    }
 }
 
 $(window).scroll(function(e) {

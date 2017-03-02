@@ -13,7 +13,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.14.0/jquery.validate.js" type="application/javascript"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.14.0/additional-methods.js" type="application/javascript"></script>
     <script type="application/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <script type="application/javascript" src="rat.js"></script>
     <script type="application/javascript" src="ccrat.js"></script>
   </head>
   <body><a class="sr-only sr-only-focusable" href="#main">Skip to main content</a>
@@ -84,7 +83,7 @@
                 </div>
               </div>
             </div>
-            <div class="box col-xs-12 col-md-4 col-md-push-1">
+            <div class="box col-xs-12 col-md-4">
               <p>This tool cannot accurately estimate risk of colorectal cancer for people who have the following problems:</p>
               <ul>
                 <li>Ulcerative colitis</li>
@@ -228,10 +227,10 @@
             <section id="activity-section">
               <div class="sectionTitle">Diet &amp; Physical Activity</div>
               <label class="questions" for="veg_servings">
-                 In the past 30 days, about how many servings per week of vegetables or leafy green salads did the patient eat?<b>Includes</b>leafy green salads and raw, cooked, canned, and frozen vegetables (including beans)<b>Does not include</b>fried vegetables like French fries or fried potatoes.</label>
+                 In the past 30 days, about how many servings per week of vegetables or leafy green salads did the patient eat?</label><em><b>Includes</b> leafy green salads and raw, cooked, canned, and frozen vegetables (including beans)<b>Does not include</b> fried vegetables like French fries or fried potatoes.</em>
               <div class="responseOptions">
                 <select id="veg_servings" name="veg_servings">
-                  <option value="">-select-</option>
+                  <option value="">- select -</option>
                   <option value="0">None</option>
                   <option value=".5">Less than 1 serving per week</option>
                   <option value="1.5">1-2 servings per week</option>
@@ -241,41 +240,37 @@
                   <option value="11">More than 10 servings per week</option>
                 </select>
               </div>
-              <div class="subquestions">
-                <label class="questions" for="veg_amount">In the past 30 days, how much did the patient usually eat in each serving of vegetables or leafy green salads?</label>
-                <div class="responseOptions">
-                  <select id="veg_amount" name="veg_amount">
-                    <option value="">-select-</option>
-                    <option value=".25">1/2 cup or less</option>
-                    <option value="1">Between 1/2 cup and 1 1/2 cups</option>
-                    <option value="2.25">Between 1 1/2 cups and 3 cups</option>
-                    <option value="4">Between 3 cups and 5 cups</option>
-                    <option value="6">More than 5 cups</option>
-                  </select>
-                </div>
+              <label class="questions subquestions" for="veg_amount">In the past 30 days, how much did the patient usually eat in each serving of vegetables or leafy green salads?</label>
+              <div class="responseOptions subquestions">
+                <select id="veg_amount" name="veg_amount">
+                  <option value="">- select -</option>
+                  <option value=".25">1/2 cup or less</option>
+                  <option value="1">Between 1/2 cup and 1 1/2 cups</option>
+                  <option value="2.25">Between 1 1/2 cups and 3 cups</option>
+                  <option value="4">Between 3 cups and 5 cups</option>
+                  <option value="6">More than 5 cups</option>
+                </select>
               </div>
-              <div class="question">
-                <label class="questions" for="moderate_months">Over the past 12 months, in how many months, if any, did the patient do any kind of moderate physical activity?</label><em>Moderate activities DO NOT cause you to sweat or breathe hard. Some examples include vacuuming, gardening, easy walking for exercise, and so on.</em>
-                <div class="responseOptions">
-                  <select name="moderate_months">
-                    <option value="">- select</option>
-                    <option value="0">0</option>
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                    <option value="6">6</option>
-                    <option value="7">7</option>
-                    <option value="8">8</option>
-                    <option value="9">9</option>
-                    <option value="10">10</option>
-                    <option value="11">11</option>
-                    <option value="12">12</option>
-                  </select>
-                </div>
+              <label class="questions" for="moderate_months">Over the past 12 months, in how many months, if any, did the patient do any kind of moderate physical activity?</label><em>Moderate activities DO NOT cause you to sweat or breathe hard. Some examples include vacuuming, gardening, easy walking for exercise, and so on.</em>
+              <div class="responseOptions">
+                <select id="moderate_months" name="moderate_months">
+                  <option value="">- select -</option>
+                  <option value="0">0</option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                  <option value="6">6</option>
+                  <option value="7">7</option>
+                  <option value="8">8</option>
+                  <option value="9">9</option>
+                  <option value="10">10</option>
+                  <option value="11">11</option>
+                  <option value="12">12</option>
+                </select>
               </div>
-              <div class="question subquestion" id="subquestion-moderate-hours">
+              <div class="subquestion" id="subquestion-moderate-hours">
                 <label class="questions" for="moderate_hours">During those months, on average, about how many hours per week did the patient do moderate physical activities?</label>
                 <div class="responseOptions">
                   <select id="moderate_hours" name="moderate_hours">
@@ -288,12 +283,27 @@
                   </select>
                 </div>
               </div>
-              <label class="questions" for="moderate_months">Over the past 12 months, in how many months, if any, did the patient do any kind of vigorous physical activity?</label><em> 
+              <label class="questions" for="vigorous_months">Over the past 12 months, in how many months, if any, did the patient do any kind of vigorous physical activity?</label><em> 
                 Vigorous activities include all activities that DO cause you to sweat or breathe hard.
                 Some examples include racquet sports, basketball, running, fast biking, exercise class, 
                 weight lifting, backpacking, swimming, and heavy labor such as shoveling dirt.</em>
               <div class="responseOptions">
-                <input id="vigorous_months" type="number" name="vigorous_months" min="0" max="12" placeholder="Enter number of months (0-12)">
+                <select id="vigorous_months" name="vigorous_months">
+                  <option value="">- select -</option>
+                  <option value="0">0</option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                  <option value="6">6</option>
+                  <option value="7">7</option>
+                  <option value="8">8</option>
+                  <option value="9">9</option>
+                  <option value="10">10</option>
+                  <option value="11">11</option>
+                  <option value="12">12</option>
+                </select>
               </div>
               <label class="questions" for="vigorous_hours">During those months, on average, about how many hours per week did the patient do vigorous physical activities?</label>
               <div class="responseOptions">
@@ -376,21 +386,21 @@
               </label>
               <div class="responseOptions">
                 <input type="radio" name="family_cancer" value="1" aria-label="yes">
-                <label class="radio"><span></span>Yes</label>
+                <label class="radio" tabindex="0"><span></span>Yes</label>
                 <input type="radio" name="family_cancer" value="0" aria-label="no">
-                <label class="radio"><span></span>No</label>
+                <label class="radio" tabindex="0"><span></span>No</label>
                 <input type="radio" name="family_cancer" value="0" aria-label="doesn't know">
-                <label class="radio"><span></span>Doesn't know</label>
+                <label class="radio" tabindex="0"><span></span>Doesn't know</label>
               </div>
               <div class="subquestion">
                 <label class="questions" for="family_count">How many of these relatives had cancer of the colon or rectum (cancer of the lower intestine)?</label>
                 <div class="responseOptions">
                   <input type="radio" value="0" name="family_count" aria-label="1">
-                  <label class="radio"><span></span>1</label>
+                  <label class="radio" tabindex="0"><span></span>1</label>
                   <input type="radio" value="1" name="family_count" aria-label="2 or more">
-                  <label class="radio"><span></span>2 or more</label>
+                  <label class="radio" tabindex="0"><span></span>2 or more</label>
                   <input type="radio" value="0" name="family_count" aria-label="doesn't know">
-                  <label class="radio"><span></span>Doesn't know</label>
+                  <label class="radio" tabindex="0"><span></span>Doesn't know</label>
                 </div>
               </div>
             </section>
